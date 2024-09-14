@@ -1,9 +1,62 @@
 package com.systex.model;
 
-public class MyDate {
+import java.util.Comparator;
+
+public class MyDate implements Comparable<MyDate> {
     private int year;
     private int month;
     private int day;
+
+    public static final Comparator<MyDate> MONTH_COMP = new Comparator<MyDate>() {
+        @Override
+        public int compare(MyDate o1, MyDate o2) {
+            if(o1.getMonth() > o2.getMonth()) {
+                return 1;
+            } else if(o1.getMonth() < o2.getMonth()) {
+                return -1;
+            } else {
+                return 0;
+            }
+        }
+    };
+
+    public static final Comparator<MyDate> DAY_COMP = new Comparator<MyDate>() {
+        @Override
+        public int compare(MyDate o1, MyDate o2) {
+            if(o1.getDay() > o2.getDay()) {
+                return 1;
+            } else if(o1.getDay() < o2.getDay()) {
+                return -1;
+            } else {
+                return 0;
+            }
+        }
+    };
+
+    public static final Comparator<MyDate> YEAR_MONTH_DAY_COMP = new Comparator<MyDate>() {
+        @Override
+        public int compare(MyDate o1, MyDate o2) {
+            if(o1.getYear() > o2.getYear()) {
+                return 1;
+            } else if(o1.getYear() < o2.getYear()) {
+                return -1;
+            } else {
+                if(o1.getMonth() > o2.getMonth()) {
+                    return 1;
+                } else if(o1.getMonth() < o2.getMonth()) {
+                    return -1;
+                } else {
+                    if(o1.getDay() > o2.getDay()) {
+                        return 1;
+                    } else if(o1.getDay() < o2.getDay()) {
+                        return -1;
+                    } else {
+                        return 0;
+                    }
+                }
+            }
+        }
+    };
 
     public MyDate(int year, int month, int day) {
         this.year = year;
@@ -56,5 +109,16 @@ public class MyDate {
     @Override
     public String toString() {
         return year + "/" + month + "/" + day;
+    }
+
+    @Override
+    public int compareTo(MyDate o) {
+        if(this.year > o.year) {
+            return 1;
+        }else if(this.year < o.year) {
+            return -1;
+        }else{
+            return 0;
+        }
     }
 }
